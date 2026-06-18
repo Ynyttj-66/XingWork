@@ -9,7 +9,7 @@
 ### 0. 克隆仓库
 
 ```bash
-git clone https://github.com/Miso2233/SonettoHere.git
+git clone https://github.com/Ynyttj-66/XingWork.git
 cd XingWork
 ```
 
@@ -58,7 +58,7 @@ cd web && npm install && npm run dev
 
 ### 🎆 Anthropic Skill 体系
 
-项目根目录的 `anthropic_skills/` 存放可复用的 **Anthropic Skill** 文件，每个子目录包含 `SKILL.md` 作为主文档。启动时系统自动扫描所有 SKILL.md 的元数据（名称、描述、路径）注入到提示词中，Agent 在需要时通过文件工具按需读取完整内容并执行。
+项目根目录的 `anthropic_skills/` 用于存放可复用的 **Anthropic Skill** 文件。将下载的 Skill 文件夹（每个包含 `SKILL.md` 作为主文档）放入该目录即可。启动时系统自动扫描所有 SKILL.md 的元数据（名称、描述、路径）注入到提示词中，Agent 在需要时通过文件工具按需读取完整内容并执行。
 
 大家可以从网上任意下载 Anthropic Skill 文件放到 `anthropic_skills/` 目录下，即可在对话中使用。
 
@@ -92,7 +92,7 @@ cd web && npm install && npm run dev
 
 ## 能力概览
 
-内置 30+ 个 Built-in Tool，涵盖日常工具链：
+内置 40+ 个 Built-in Tool，涵盖日常工具链：
 
 | 领域 | Tools | 需要配置 |
 |------|--------|----------|
@@ -103,7 +103,9 @@ cd web && npm install && npm run dev
 | **开发** | 语法检查、代码质量分析、单元测试、调试器 | — |
 | **系统** | 当前时间、Python 脚本执行 | — |
 | **SubAgent** | 创建独立会话执行复杂子任务 | — |
-| **交互** | 向用户提问 | — |
+| **交互** | 向用户提问（单/多选项、问答） | — |
+| **记忆** | 列出/读取/创建/更新/删除/合并长期记忆 | — |
+| **任务** | 会话级任务追踪，动态状态标签与进度条 | — |
 | **娱乐** | 答案之书、塔罗牌 | `UAPIS_API_KEY` |
 | **B站** | 视频下载 | — |
 
@@ -128,12 +130,10 @@ XingWork/
 ├── requirements.txt
 ├── .env.example
 ├── providers.yaml            # 多 LLM 提供商配置
-├── anthropic_skills/         # Anthropic Skill 目录（自动扫描注入）
-│   └── skill-creator/        #   示例：技能创建器
+├── anthropic_skills/         # Anthropic Skill 目录（放入 Skill 文件夹即可用）
 │
 ├── agent/
-│   ├── graph.py              # LangGraph create_react_agent
-│   ├── state.py              # AgentState
+│   ├── graph.py              # langchain.agents.create_agent（LangGraph 封装）
 │   └── prompts.py            # 系统提示词组装（含 skill 扫描注入）
 │
 ├── config/
@@ -179,7 +179,7 @@ SubAgent ：
                               └── 前端流式输出 ←───┘
 ```
 
-- **Agent 框架**：LangGraph `create_react_agent` + MemorySaver
+- **Agent 框架**：LangChain `create_agent`（封装 LangGraph）+ MemorySaver
 - **多 LLM 后端**：DeepSeek / OpenAI / Anthropic / 任何 OpenAI 兼容 API
 - **记忆系统**：短期记忆（token 阈值裁剪）+ 长期记忆（异步 YAML 持久化）
 - **前端**：Vue 3 + Vite，WebSocket 实时流式对话

@@ -1,13 +1,14 @@
-"""XingWork v2.0.0 — LangGraph ReAct AI Agent Web 入口。"""
+"""XingWork — LangGraph ReAct AI Agent Web 入口。"""
 
 import uvicorn
 
 from api.server import create_app
 from memory.user_init import ensure_all
+from version import __version__
 
 
 def main():
-    print("XingWork v2.0.0")
+    print(f"XingWork {__version__}")
     print()
 
     ensure_all()
